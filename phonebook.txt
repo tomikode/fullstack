@@ -1,0 +1,26 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function App() {
+
+  const [people, setPeople] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/persons")
+      .then(res => res.json())
+      .then(result => { setPeople(result); console.log(result); })
+      .then(() => setLoading(false));
+  }, []);
+
+
+
+  return (
+    <div>
+      {loading ? <p>Loading...</p> : 
+      people.map(person => <p key={person.id}>{person.name}</p>)} 
+    </div>
+  );
+}
+
+export default App;
